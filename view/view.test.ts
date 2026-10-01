@@ -3,6 +3,7 @@ namespace $ {
 
 		'$bog_gtk_view keeps widget identity on reactive rerender'() {
 			const host = new $bog_gtk_host_mock
+			$bog_gtk_view.gtk_roots.clear()
 			$bog_gtk_view.host = host
 
 			class Demo extends $bog_gtk_label {
@@ -22,6 +23,7 @@ namespace $ {
 
 		'$bog_gtk_view propagates native events into state'() {
 			const host = new $bog_gtk_host_mock
+			$bog_gtk_view.gtk_roots.clear()
 			$bog_gtk_view.host = host
 
 			class Demo extends $bog_gtk_entry {
@@ -40,14 +42,15 @@ namespace $ {
 
 		'$bog_gtk_view reuses child widgets when order changes'() {
 			const host = new $bog_gtk_host_mock
+			$bog_gtk_view.gtk_roots.clear()
 			$bog_gtk_view.host = host
 
 			class Demo extends $bog_gtk_box {
 				@ $mol_mem reversed( next?: boolean ) {
 					return next ?? false
 				}
-				one() { return new $bog_gtk_label }
-				two() { return new $bog_gtk_label }
+				@ $mol_mem one() { return new $bog_gtk_label }
+				@ $mol_mem two() { return new $bog_gtk_label }
 				override sub() {
 					return this.reversed()
 						? [ this.two(), this.one() ]
