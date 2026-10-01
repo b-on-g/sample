@@ -21,10 +21,10 @@ app.connect( 'activate', ()=> {
 	if( ARGV.includes( '--smoke' ) ) {
 		GLib.timeout_add( GLib.PRIORITY_DEFAULT, 250, ()=> {
 			if( !( window instanceof Gtk.ApplicationWindow ) ) throw new Error( 'Native root is not Gtk.ApplicationWindow' )
-			if( !demo.Increment().gtk_widget() ) throw new Error( 'Button was not created' )
-			demo.increment( true )
-			demo.gtk_tree()
-			if( demo.count() !== 1 ) throw new Error( 'Reactive counter did not update' )
+			const button = demo.Increment().gtk_widget()
+			if( !( button instanceof Gtk.Button ) ) throw new Error( 'Native button was not created' )
+			button.emit( 'clicked' )
+			if( demo.count() !== 1 ) throw new Error( 'GTK click did not update reactive state' )
 			app.quit()
 			return GLib.SOURCE_REMOVE
 		} )
