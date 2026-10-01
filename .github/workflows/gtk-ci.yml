@@ -24,6 +24,7 @@ jobs:
               run: node -e "globalThis.self=globalThis; self.addEventListener=()=>{}; self.removeEventListener=()=>{}; import('./bog/gtk/demo/-/web.mjs').then(m=>console.log(Object.keys(m).slice(0,20)))"
 
             - uses: actions/upload-artifact@v4
+              if: always()
               with:
                   name: gtk-demo-bundle
                   path: bog/gtk/demo/-
