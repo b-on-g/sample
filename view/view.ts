@@ -2,7 +2,7 @@ namespace $ {
 	export class $bog_gtk_view extends $mol_view {
 
 		static host = null as $bog_gtk_host | null
-		static roots = new Set< $bog_gtk_view >
+		static gtk_roots = new Set< $bog_gtk_view >
 
 		gtk_kind() {
 			return 'box'
@@ -37,7 +37,7 @@ namespace $ {
 			const widget = this.gtk_widget()
 			return Object.entries( this.gtk_events() ).map( ([ name, handler ])=> host.event( widget, name, value => {
 				handler( value )
-				for( const root of $bog_gtk_view.roots ) root.gtk_tree()
+				for( const root of $bog_gtk_view.gtk_roots ) root.gtk_tree()
 			} ) )
 		}
 
@@ -70,12 +70,12 @@ namespace $ {
 		}
 
 		gtk_mount() {
-			$bog_gtk_view.roots.add( this )
+			$bog_gtk_view.gtk_roots.add( this )
 			return this.gtk_tree()
 		}
 
 		override destructor() {
-			$bog_gtk_view.roots.delete( this )
+			$bog_gtk_view.gtk_roots.delete( this )
 			for( const off of $mol_wire_probe( ()=> this.gtk_event_off() ) ?? [] ) off()
 			const widget = $mol_wire_probe( ()=> this.gtk_widget() )
 			if( widget ) this.gtk_host().destroy( widget )
