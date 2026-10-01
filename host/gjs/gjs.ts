@@ -3,6 +3,7 @@ namespace $ {
 
 		private kinds = new WeakMap< object, string >
 		private kids = new WeakMap< object, readonly object[] >
+		private sizes = new WeakMap< object, { width: number, height: number } >
 
 		constructor(
 			readonly application: any,
@@ -34,8 +35,11 @@ namespace $ {
 
 			if( kind === 'window' ) {
 				if( name === 'title' ) widget.set_title( String( value ?? '' ) )
-				if( name === 'width' ) widget.set_default_size( Number( value ), widget.get_default_size?.()[1] ?? -1 )
-				if( name === 'height' ) widget.set_default_size( widget.get_default_size?.()[0] ?? -1, Number( value ) )
+				const size = this.sizes.get( widget ) ?? { width: -1, height: -1 }
+				if( name === 'width' ) size.width = Number( value )
+				if( name === 'height' ) size.height = Number( value )
+				this.sizes.set( widget, size )
+				if( name === 'width' || name === 'height' ) widget.set_default_size( size.width, size.height )
 				return
 			}
 
@@ -94,11 +98,16 @@ namespace $ {
 			if( kind !== 'box' ) return
 
 			for( const child of prev ) {
-				try { widget.remove( child ) } catch {}
+				if( !next.includes( child ) ) widget.remove( child )
 			}
 
-			for( const child of next ) widget.append( child )
-			this.kids.set( widget, next )
+			let after: any = null
+			for( const child of next ) {
+				if( !prev.includes( child ) ) widget.insert_child_after( child, after )
+				else widget.reorder_child_after( child, after )
+				after = child
+			}
+			this.kids.set( widget, [ ... next ] )
 		}
 
 		destroy( widget: any ) {
