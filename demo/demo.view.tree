@@ -8,3 +8,5 @@ $bog_gtk_demo $bog_gtk_window
 				<= Increment $bog_gtk_button
 					title \Increment
 					click? <=> increment? null
+	count_title \
+	increment? null
