@@ -1,0 +1,20 @@
+name: GTK CI
+
+permissions: write-all
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - gtk-ci
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: hyoo-ru/mam_build@master2
+              with:
+                  token: ${{ secrets.GH_PAT }}
+                  package: bog/gtk
+                  modules: demo
