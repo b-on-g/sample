@@ -41,7 +41,6 @@ namespace $ {
 			} ) )
 		}
 
-		@ $mol_mem
 		gtk_tree() {
 			const host = this.gtk_host()
 			const widget = this.gtk_widget()
