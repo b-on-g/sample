@@ -7,6 +7,7 @@ on:
     push:
         branches:
             - gtk-ci
+    pull_request:
 
 jobs:
     build:
