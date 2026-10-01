@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>$bog_gtk</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;max-width:760px;margin:4rem auto;padding:0 1.5rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,monospace}
+pre{padding:1rem;background:#f4f4f4;overflow:auto}
+</style>
+<h1>$bog_gtk</h1>
+<p>Experimental native GTK4 renderer for $mol/MAM.</p>
+<p>The UI is rendered with real GTK4 widgets through GJS. No WebView is used.</p>
+<pre>view.tree → $bog_gtk_view → $bog_gtk_host → GJS → GTK4</pre>
+<p>GitHub Actions validates MAM audit/tests and a native GTK4 smoke run before deployment.</p>

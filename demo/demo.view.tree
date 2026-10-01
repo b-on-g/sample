@@ -1,0 +1,18 @@
+$bog_gtk_demo $bog_gtk_window
+	window_title \$mol GTK4 demo
+	sub /
+		<= Body $bog_gtk_box
+			sub /
+				<= Name $bog_gtk_entry
+					value? <=> name? \World
+					placeholder \Your name
+				<= Greeting $bog_gtk_label
+					text <= greeting
+				<= Count $bog_gtk_label
+					text <= count_title
+				<= Increment $bog_gtk_button
+					title \Increment
+					click? <=> increment? null
+	count_title \
+	greeting \
+	increment? null
