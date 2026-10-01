@@ -6,7 +6,7 @@ namespace $ {
 		override gtk_text() { return this.value() }
 		override gtk_props() { return { placeholder: this.placeholder() } }
 		override gtk_events() {
-			return { input: value => this.value( String( value ?? '' ) ) }
+			return { input: ( value: unknown )=> this.value( String( value ?? '' ) ) }
 		}
 	}
 }
